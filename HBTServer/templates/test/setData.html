@@ -1,0 +1,74 @@
+<html>
+
+	<head>
+		<title>HBT정보저장</title>
+	</head>
+
+	<BODY bgcolor="#FFFFFF" text="#000000"> <br>
+		<form name="frm" method="POST" action="setdata/">  {% csrf_token %}
+			<table width="500" border="0" cellspacing="0">
+				<tr>
+					<td>Head</td>
+				</tr>
+
+				<tr>
+					<td>ID</td>
+					<td>
+						<input type="text" name="ID" size="10">
+					</td>
+				</tr>
+
+				<tr>
+					<td>Time</td>
+					<td>
+						<input type="text" name="Time" size="10">
+					</td>
+				</tr>
+
+				<tr>
+					<td>Location</td>
+					<td>
+						<input type="text" name="Location" size="10">
+					</td>
+				</tr>
+
+				<tr>
+					<td>Body</td>
+				</tr>
+
+				<tr>
+					<td>Type</td>
+					<td>
+						<input type="text" name="Type" size="10">
+					</td>
+				</tr>
+
+				<tr>
+					<td>DataSequence</td>
+					<td>
+						<input type="text" name="DataSequence" size="10">
+					</td>
+				</tr>
+
+				<tr>
+					<td>Tail</td>
+				</tr>
+
+				<tr>
+					<td>Result</td>
+					<td>
+						<input type="text" name="Result" size="10">
+					</td>
+				</tr>
+
+				<tr>
+					<td>Accuracy</td>
+					<td>
+						<input type="text" name="Accuracy" size="10">
+					</td>
+				</tr>
+			<input type="submit" value="보내기" name="submit">
+		</form>
+	</body>
+
+</html>
