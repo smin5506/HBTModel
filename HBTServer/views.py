@@ -4,7 +4,6 @@ from django.http import JsonResponse
 from django.core import serializers
 from .models import HBT
 import urllib.request
-import pandas
 from django.views.decorators.csrf import csrf_exempt
 # Create your views here.
 
@@ -19,12 +18,20 @@ def setData(request):
         myID = request.POST['ID']
         myLocation = request.POST['Location']
         HBT.Head(HBT_ID=myID, Location = myLocation).save()
+
         myType = request.POST['Type']
         myDataSequence = request.POST['DataSequence']
         HBT.Body(Type=myType, DataSequence=myDataSequence).save()
+
         myResult = request.POST['Result']
         myAccuracy = request.POST['Accuracy']
         HBT.Tail(Result=myResult, Accuracy=myAccuracy).save()
+
+        myHeart = request.POST['Heart']
+        mySkin = request.POST['Skin']
+        myMyo = request.POST['Myo']
+        myMic = request.POST['Mic']
+        HBT.Bodydata(Heart=myHeart, Skin=mySkin, Myo=myMyo, Mic=myMic).save()
 
     else:
         print("not POST")
@@ -35,7 +42,8 @@ def viewData(request):
 	headData = serializers.serialize('json', HBT.Head.objects.all())
 	bodyData = serializers.serialize('json', HBT.Body.objects.all())
 	tailData = serializers.serialize('json', HBT.Tail.objects.all())
-	dataResult = headData + "%" + bodyData + "%" + tailData
+	BodydataData = serializers.serialize('json', HBT.Tail.objects.all())
+	dataResult = headData + "%" + bodyData + "%" + tailData + "%" + BodydataData
 	return HttpResponse(dataResult, content_type='json')
 
 def searchData(request, mType, mySearchData):
@@ -58,9 +66,7 @@ def searchData(request, mType, mySearchData):
         data = HBT.Body.objects.filter(Type=mySearchData)
 
     elif(mType == "DataSequence") :
-        pass
-        #HBT.Head.objects.get(jsonfield_contains={'username':username})
-        #dataframe형태로 변경하는 코드 작성
+        data = HBT.Body.objects.filter(DataSequence__breed=['heart'])
 
     elif(mType == "Result") :
         data = HBT.Tail.objects.filter(Result=mySearchData)
@@ -68,7 +74,8 @@ def searchData(request, mType, mySearchData):
     elif(mType == "Accuraccy") :
         data = HBT.Tail.objects.filter(Accuraccy=mySearchData)
 
-    return HttpResponse(data, content_type='json')
+    #return HttpResponse(data, content_type='json')
+    return HttpResponse(data)
 
 
 
